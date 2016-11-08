@@ -23,6 +23,15 @@ signals:
 
 public slots:
     void show();
+    void showR();
+    void showG();
+    void showB();
+    void wlacz_led();
+    void wylacz_led();
+
+    void skala10();
+    void skala100();
+    void skala600();
 
 
 private:

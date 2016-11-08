@@ -65,7 +65,12 @@ XplainedMini->clear(QSerialPort::AllDirections);
     wynikR=wynikR/listaR.length();
     qDebug()<<wynikR;
     qDebug()<<listaR.length();
-    int wynikIntR=(int)wynikR;
+
+    wynikR/=10;
+    wynikR=round(wynikR);
+    wynikR*=10;
+
+    int wynikIntR=static_cast<int>(wynikR);
 
 
 
@@ -91,7 +96,13 @@ XplainedMini->clear(QSerialPort::AllDirections);
        wynikG=wynikG/listaG.length();
        qDebug()<<wynikG;
 
-       int wynikIntG=(int)wynikG;
+
+
+       wynikG/=10;
+       wynikG=round(wynikG);
+       wynikG*=10;
+
+       int wynikIntG= static_cast<int>(wynikG);
 
 
        XplainedMini->clear(QSerialPort::AllDirections);
@@ -113,11 +124,157 @@ XplainedMini->clear(QSerialPort::AllDirections);
              wynikB+=s.toDouble();
           }
          wynikB=wynikB/listaB.length();
+         wynikB/=10;
+         wynikB=round(wynikB);
+         wynikB*=10;
+         int wynikIntB=static_cast<int>(wynikB);
 
-         int wynikIntB=(int)wynikB;
           emit displayB(wynikIntB);
          emit displayR(wynikIntR);
-           emit displayG(wynikIntG);
+         emit displayG(wynikIntG);
+}
+
+void PortSzeregowy::showR()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("R");
+       while(XplainedMini->waitForBytesWritten(100))
+       while(XplainedMini->waitForReadyRead(250));
+
+       pomiar_R=XplainedMini->read(250);
+   XplainedMini->clear(QSerialPort::AllDirections);
+
+       qDebug()<<pomiar_R;
+       double wynikR;
+       QStringList listaR = pomiar_R.split(" ");
+       listaR.removeLast();
+       listaR.removeFirst();
+       foreach (QString s, listaR) {
+          qDebug()<<s;
+          wynikR+=s.toDouble();
+       }
+       wynikR=wynikR/listaR.length();
+       qDebug()<<wynikR;
+       qDebug()<<listaR.length();
+
+       wynikR/=10;
+       wynikR=round(wynikR);
+       wynikR*=10;
+
+       int wynikIntR=static_cast<int>(wynikR);
+
+         emit displayR(wynikIntR);
+
+
+}
+
+void PortSzeregowy::showG()
+{
+
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("G");
+       while(XplainedMini->waitForBytesWritten(100))
+       while(XplainedMini->waitForReadyRead(250));
+
+       pomiar_G=XplainedMini->read(250);
+
+         XplainedMini->clear(QSerialPort::AllDirections);
+
+       qDebug()<<pomiar_G;
+
+       double wynikG;
+       QStringList listaG = pomiar_G.split(" ");
+       listaG.removeLast();
+       listaG.removeFirst();
+       foreach (QString s, listaG) {
+          qDebug()<<s;
+          wynikG+=s.toDouble();
+       }
+       wynikG=wynikG/listaG.length();
+       qDebug()<<wynikG;
+
+       wynikG/=10;
+       wynikG=round(wynikG);
+       wynikG*=10;
+
+       int wynikIntG= static_cast<int>(wynikG);
+       emit displayG(wynikIntG);
+}
+
+void PortSzeregowy::showB()
+{
+
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("B");
+       while(XplainedMini->waitForBytesWritten(100))
+       while(XplainedMini->waitForReadyRead(250));
+
+      pomiar_B=XplainedMini->read(250);
+
+       XplainedMini->clear(QSerialPort::AllDirections);
+       qDebug()<<pomiar_B;
+
+       double wynikB;
+       QStringList listaB = pomiar_B.split(" ");
+       listaB.removeLast();
+      listaB.removeFirst();
+       foreach (QString s, listaB) {
+          qDebug()<<s;
+          wynikB+=s.toDouble();
+       }
+      wynikB=wynikB/listaB.length();
+
+      wynikB/=10;
+      wynikB=round(wynikB);
+      wynikB*=10;
+
+      int wynikIntB=static_cast<int>(wynikB);
+
+       emit displayB(wynikIntB);
+
+}
+
+void PortSzeregowy::wlacz_led()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("L");
+       while(XplainedMini->waitForBytesWritten(100))
+     XplainedMini->clear(QSerialPort::AllDirections);
+
+
+}
+
+void PortSzeregowy::wylacz_led()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("X");
+       while(XplainedMini->waitForBytesWritten(100))
+     XplainedMini->clear(QSerialPort::AllDirections);
+
+}
+
+void PortSzeregowy::skala10()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("1");
+       while(XplainedMini->waitForBytesWritten(100))
+     XplainedMini->clear(QSerialPort::AllDirections);
+}
+
+void PortSzeregowy::skala100()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("2");
+       while(XplainedMini->waitForBytesWritten(100))
+     XplainedMini->clear(QSerialPort::AllDirections);
+}
+
+void PortSzeregowy::skala600()
+{
+    XplainedMini->clear(QSerialPort::AllDirections);
+       XplainedMini->write("3");
+       while(XplainedMini->waitForBytesWritten(100))
+     XplainedMini->clear(QSerialPort::AllDirections);
 }
 
 
