@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    portszeregowy.cpp
+    portszeregowy.cpp \
+    colorwidget.cpp
 
 HEADERS  += mainwindow.h \
-    portszeregowy.h
+    portszeregowy.h \
+    colorwidget.h
 
 FORMS    += mainwindow.ui
